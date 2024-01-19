@@ -4,4 +4,6 @@
 *.tfstate.backup
 *.tfstate.d/
 .terraform.lock.hcl
-.out
+
+# Ignore nohup output file
+nohup.out
