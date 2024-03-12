@@ -16,7 +16,7 @@ jobs:
 
       - name: Configure AWS Credentials
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRETKEY }}
         run: echo "AWS credentials configured"
 
