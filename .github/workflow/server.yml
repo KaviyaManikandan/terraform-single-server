@@ -1,1 +1,35 @@
+name: Terraform Single Server CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch as per your requirement
+  pull_request:
+    branches:
+      - main  # Adjust branch as per your requirement
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0  # Adjust Terraform version as per your requirement
+      
+    - name: Initialize Terraform
+      run: terraform init
+      
+    - name: Validate Terraform Configuration
+      run: terraform validate
+      
+    - name: Plan Terraform Changes
+      run: terraform plan
+      
+    - name: Apply Terraform Changes
+      run: terraform apply -auto-approve
 
