@@ -7,11 +7,6 @@ resource "aws_instance" "example" {
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.sg.id]
   subnet_id     = "subnet-00dfb4d67ac08ffbe"  # Specify your subnet ID here
-
-  tags = {
-    Name = "terraform-example"
-  }
-
   user_data = <<-EOF
     #!/bin/bash
     echo "Hii kaviya" > index.html
