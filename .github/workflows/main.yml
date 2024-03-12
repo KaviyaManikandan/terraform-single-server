@@ -1,4 +1,4 @@
-name: Terraform Plan Apply
+name: Terraform Deployment
 
 on:
   push:
@@ -7,8 +7,13 @@ on:
 
 jobs:
   terraform:
+    name: Terraform Deployment
     runs-on: ubuntu-latest
-    
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRETKEY }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,12 +23,6 @@ jobs:
         with:
           terraform_version: 1.0.0
 
-      - name: Configure AWS Credentials
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRETKEY }}
-        run: echo "AWS credentials configured"
-
       - name: Terraform Init
         run: terraform init
 
@@ -31,4 +30,5 @@ jobs:
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
